@@ -1,0 +1,119 @@
+----------------- Options ---------------
+               CBN_intype: warp_mask                     
+                    D_cam: 0.0                           
+            D_steps_per_G: 1                             
+                     PONO: True                          	[default: False]
+                   PONO_C: True                          	[default: False]
+           adaptor_kernel: 3                             
+         adaptor_nonlocal: True                          	[default: False]
+       adaptor_res_deeper: False                         
+               adaptor_se: False                         
+                     apex: False                         
+             aspect_ratio: 1.0                           
+                batchSize: 2                             	[default: 4]
+                    beta1: 0.5                           
+                    beta2: 0.999                         
+                     blur: 0.005                         
+      cache_filelist_read: False                         
+     cache_filelist_write: False                         
+          checkpoints_dir: ./checkpoints                 
+   contain_dontcare_label: True                          
+           continue_train: False                         
+           correspondence: ot                            
+                crop_size: 256                           
+                    ctx_w: 1.0                           
+                 dataroot: datasets/ADEChallengeData2016 	[default: /root/code/SYTR/UNITE/data/Dataset/ADE20K]
+             dataset_mode: ade20k                        
+            dilation_conv: False                         
+             display_freq: 1000                          
+          display_winsize: 256                           
+              domain_rela: False                         
+                 ema_beta: 0.999                         
+                  eqlr_sn: False                         
+                 fm_ratio: 0.1                           
+                 gan_mode: hinge                         
+                  gpu_ids: 0                             	[default: 0,1,2,3]
+hard_reference_probability: 0.2                           
+                init_type: xavier                        
+            init_variance: 0.02                          
+                  isTrain: True                          	[default: None]
+                 label_nc: 150                           
+              lambda_feat: 10.0                          
+               lambda_vgg: 10.0                          
+       load_from_opt_file: False                         
+                load_size: 286                           
+                       lr: 0.0002                        
+               mask_epoch: -1                            
+               mask_noise: False                         
+                  maskmix: True                          	[default: False]
+             match_kernel: 3                             
+         max_dataset_size: 9223372036854775807           
+                    model: pix2pix                       
+                 nThreads: 16                            
+               n_layers_D: 4                             
+                     name: ade20k                        	[default: label2coco]
+                      ndf: 64                            
+                     netD: multiscale                    
+             netD_subarch: n_layer                       
+                     netG: seace                         
+                      ngf: 64                            
+                    niter: 150                           	[default: 100]
+              niter_decay: 150                           	[default: 100]
+                  no_TTUR: False                         
+                  no_flip: False                         
+          no_ganFeat_loss: False                         
+         no_pairing_check: False                         
+           noise_for_mask: False                         
+                   norm_D: spectralinstance              
+                   norm_E: spectralinstance              
+                   norm_G: spectralspadesyncbatch3x3     
+           novgg_featpair: 10.0                          
+                    num_D: 2                             
+                optimizer: adam                          
+                ot_weight: False                         
+                output_nc: 3                             
+                    phase: train                         
+          preprocess_mode: resize_and_crop               
+               print_freq: 1000                          
+real_reference_probability: 0.7                           
+          save_epoch_freq: 10                            
+         save_latest_freq: 2000                          
+           serial_batches: False                         
+            show_warpmask: False                         
+                two_cycle: False                         
+                use_22ctx: False                         
+            use_attention: True                          	[default: False]
+            use_coordconv: True                          	[default: False]
+                  use_ema: False                         
+       vgg_normal_correct: False                         
+               video_like: False                         
+            warp_bilinear: False                         
+             warp_cycle_w: 0.0                           
+       warp_mask_losstype: direct                        	[default: none]
+               warp_patch: False                         
+              warp_self_w: 0.0                           
+              warp_stride: 4                             
+           weight_domainC: 0.0                           
+               weight_gan: 10.0                          
+              weight_mask: 100.0                         	[default: 0.0]
+        weight_perceptual: 0.01                          
+              which_epoch: latest                        
+         which_perceptual: 5_2                           
+                    z_dim: 256                           
+----------------- End -------------------
+train.py --name ade20k --dataset_mode ade20k --dataroot datasets/ADEChallengeData2016 --correspondence ot --display_freq 1000 --niter 150 --niter_decay 150 --maskmix --use_attention --warp_mask_losstype direct --weight_mask 100.0 --PONO --PONO_C --use_coordconv --adaptor_nonlocal --ctx_w 1.0 --batchSize 2 --gpu_ids 0
+dataset [ADE20KDataset] of size 20210 was created
+/usr/local/lib/python3.8/dist-packages/torch/utils/data/dataloader.py:478: UserWarning: This DataLoader will create 16 worker processes in total. Our suggested max number of worker in current system is 12, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+/usr/local/lib/python3.8/dist-packages/torchvision/transforms/transforms.py:280: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+Network [SEACEGenerator] was created. Total number of parameters: 131.8 million. To see the architecture, do print(network).
+Network [MultiscaleDiscriminator] was created. Total number of parameters: 6.9 million. To see the architecture, do print(network).
+Network [NoVGGCorrespondence] was created. Total number of parameters: 76.3 million. To see the architecture, do print(network).
+inject mask
+real_reference_probability is :0.7
+hard_reference_probability is :0.2
+/usr/local/lib/python3.8/dist-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /pytorch/c10/core/TensorImpl.h:1156.)
+  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+/usr/local/lib/python3.8/dist-packages/torch/nn/functional.py:3657: UserWarning: The default behavior for interpolate/upsample with float scale_factor changed in 1.6.0 to align with other frameworks/libraries, and now uses scale_factor directly, instead of relying on the computed output size. If you wish to restore the old behavior, please set recompute_scale_factor=True. See the documentation of nn.Upsample for details. 
+  warnings.warn(
